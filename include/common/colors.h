@@ -9,10 +9,9 @@
  * SOFTWARE.
  */
 /*
- * library dedicated only to define constant string that change text color
+ * library only dedicated to define constant string that change text color
  * or background on terminals that support ANSI escape characters
- */
-/*
+ * source:
  * https://stackoverflow.com/questions/4842424/list-of-ansi-color-escape-sequences
  */
 
@@ -23,22 +22,17 @@
 
 //move cursor
 #define gotoxy(x,y) printf("\033[%d;%dH", (x), (y))
-/*
-void gotoxy(int x, int y) {
-    printf("\033[%d;%dH", x, y);
-}
-*/
+
+//clear the screen
+#ifndef ANSI_CLEAN
+    #define ANSI_CLEAN "\x1b[H\x1b[J"
+#endif
 
 /*
  * \x1b[38;2;r;g;b
  * \x1b[48;2;r;g;b
  * for any supported color of text and background
  */
-
-//clear the screen
-#ifndef ANSI_CLEAN
-    #define ANSI_CLEAN "\x1b[H\x1b[J"
-#endif
 
 //font colors (foreground)
 #ifndef ANSI_BLACK
@@ -136,6 +130,7 @@ void gotoxy(int x, int y) {
     #define ANSI_RESET   "\x1b[0m"
 #endif
 
+//customized string output
 int printf_error(char* string) {
     return printf(ANSI_RED ANSI_BOLD "%s" ANSI_RESET "\n", string);
 }

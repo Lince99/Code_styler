@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE CodeStylerStyle>
-<!-- Written by CodeStyler program in 09-03-2019 -->
+<!-- Written by CodeStyler 0.1 at 13-50_11-03-2019) -->
 <!-- Rules originally created by Lince99.
     This file define the style of the code inspired by:
         Linux kernel found on github,
@@ -16,10 +16,10 @@
                 in = in the same line of the name/code
                 after = after the line of name/code
         -->
-		<position> top </position>
-		<start> "/* " </start>
-		<mid> " * " </mid>
-		<end> " */" </end>
+		<position type="position"> "top" </position>
+		<start type="string"> "/* " </start>
+		<mid type="string"> " * " </mid>
+		<end type="string"> " */" </end>
 	</comments>
 
 	<!-- following these rules means that your code is sharable -->
@@ -30,7 +30,7 @@
             l = lowercase (!U)
             U = uppercase (!l)
             _ = accept only underscore, no spaces allowed. (!s)
-            c = accept CamelCase mode (!_) camelcase include starting maiusc
+            c = accept CamelCase mode (!_), camelcase include maiusc at start
             t = accept tab character. (!s)
             s = accept only space as word-separator, no underscore. (!_)
             m = accept both space and tabs (ts, where s reactivate spaces)
@@ -40,77 +40,76 @@
         <!-- INDENTATION STYLE -->
 		<indent require="1">
 			<!-- accept: tab (t), space (s), mixed (m) -->
-			<type> s </type>
-			<count> 4 </count>
+			<startChar type="char"> "s" </startChar>
+			<count type="int"> 4 </count>
             <!-- required space between operators like a = b, spacing = 1 -->
-            <spacing> 1 </spacing>
+            <spacing type="int"> 1 </spacing>
             <!-- position rules:
                     align = require the same char position as upper param line
                     one = accept only one parameter per line
                     none = no rules required
             -->
-            <params> "align" </params>
-            <vars> "one" </vars>
+            <params type="string"> "align" </params>
+            <vars type="position"> "one" </vars>
 		</indent>
 		<!-- GLOBALS -->
 		<global require="1">
-            <startChar> "U" </startChar>
+            <startChar type="char"> "U" </startChar>
             <!-- accept UPPERCASE, no numbers, no CamelCase and no specials -->
-            <name> "UA_!S" </name>
+            <name type="string"> "UA_!S" </name>
 		</global>
 		<!-- CLASSES/FUNCTIONS -->
         <function require="1">
-            <startChar> "l" </startChar>
-            <name> "Al_" </name>
+            <startChar type="char"> "l" </startChar>
+            <name type="string"> "Al_" </name>
             <!-- brackets style -->
             <bracket require="1">
                 <!-- accept: yes, no -->
-                <required> true </required>
+                <required type="boolean"> true </required>
                 <!-- where does the open bracket goes -->
                 <open>
-                    <position> in </position>
+                    <position type="position"> "in" </position>
                 </open>
                 <!-- where does the closed bracket goes -->
                 <close>
-                    <position> after </position>
+                    <position type="position"> "after" </position>
                 </close>
             </bracket>
         </function>
 		<!-- VARIABLES -->
         <var require="1">
-            <startChar> "l" </startChar>
-            <name> "Al_" </name>
+            <startChar type="char"> "l" </startChar>
+            <name type="string"> "Al_" </name>
         </var>
 	</code>
     <!-- FILENAMES -->
     <files require="1">
         <!-- project's directory name -->
         <dir require="1">
-            <startChar> "U" </startChar>
-            <name> "Anl_" </name>
+            <startChar type="char"> "U" </startChar>
+            <name type="string"> "Anl_" </name>
         </dir>
         <!-- source code's name -->
         <source require="1">
-            <startChar> "l" </startChar>
-            <name> "Al_" </name>
+            <startChar type="char"> "l" </startChar>
+            <name type="string"> "Al_" </name>
         </source>
         <!-- libraries directory's name -->
         <libraries require="1">
-            <startChar> "l" </startChar>
-            <name> "Al_" </name>
+            <startChar type="char"> "l" </startChar>
+            <name type="string"> "Al_" </name>
         </libraries>
     </files>
     <!-- OTHER RULES -->
     <other require="1">
         <!-- type of copyright/left license used -->
         <copyright require="1">
-            <type> "GPL" </type>
+            <name type="string"> "GPL" </name>
         </copyright>
         <!-- encoding types and formatting rules -->
         <encode>
-            <type> "UTF-8" </type>
-            <newline> "LF" </newline>
+            <name type="string"> "UTF-8" </name>
+            <newline type="string"> "LF" </newline>
         </encode>
     </other>
-
 </language>

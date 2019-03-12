@@ -15,15 +15,15 @@
 #ifndef INPUT_CHECK_H
 #define INPUT_CHECK_H
 
-#include <stdio.h> //printf
-#include <stdlib.h> //atoi, malloc
-#include <string.h> //strlen
-#include <limits.h> //INT_MAX
-#include "colors.h" //printf colors
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <limits.h>
+#include "colors.h"
 
 //max number of char per string
 #ifndef MAX_CHAR
-    #define MAX_CHAR 128
+    #define MAX_CHAR 79 //max char per row (because yes)
 #endif
 
 //signatures
@@ -95,7 +95,7 @@ void getFloat(float* x) {
         //check if it's a number (only digits, max 1 comma)
         valid = checkNumber(str, strDim);
         if(!valid)
-            printf(ANSI_RED "Invalid number!" ANSI_RESET "\n");
+            printf(ANSI_RED "Invalid float number!" ANSI_RESET "\n");
         //if it is, convert the string into integer
         else
             *x = strtod(str, NULL);
@@ -107,7 +107,7 @@ void getFloat(float* x) {
 /*
  * function that require the address of the char to save.
  * It takes the first stdin char wrote by user, ignoring all next chars.
- * Also It returns the integer value of the char
+ * Also It returns the integer value of the char (if it's a digit, convert it)
  */
 int getChar(char* x) {
     char* str = NULL; /* the user input will be saved here */
@@ -127,7 +127,7 @@ int getChar(char* x) {
         }
     } while(!valid);
     free(str);
-    //covert char to int
+    //convert char to int
     digit = (int)*x;
     if(digit >= 48 && digit <= 57)
         digit -= 48;
@@ -180,7 +180,7 @@ int getString(char** str) {
     //try to pre-alloc the string for avoding seg faults
     *str = (char*) malloc(sizeof(char)*MAX_CHAR);
     if(!str) {
-        printf(ANSI_RED "Error on alloca string!"
+        printf(ANSI_RED "Error on alloc string!"
                ANSI_RESET "\n");
         *str = NULL;
         return -1;

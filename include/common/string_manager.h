@@ -28,9 +28,10 @@ char* trim_xml(char* str);
 
 
 /*
- * funzione che cerca il carattere find
- * nella stringa data a partire da start
- * e ritorna -1 in caso non trovi il carattere
+ * function that search the position of "find" char
+ * in the string "data" starting at "start" position.
+ * It returns -1 in case of errors,
+ * else a positive number bigger that start is returned
  */
 int get_pos(char* data, int start, char find) {
     int lung = 0;
@@ -49,16 +50,17 @@ int get_pos(char* data, int start, char find) {
 }
 
 /*
- * funzione che restituisce la stringa estratta dalla posizione start alla end
+ * function that return the extracted string from "str" at start to end
  */
 char* substring(char* str, int start, int end) {
     char* new_s = NULL;
+    int str_len = (int) strlen(str);
     int i = 0;
 
     if(start > end || str == NULL ||
-       start == end || end > (int) strlen(str))
+       start == end || end > str_len)
         return NULL;
-    if(start == 0 && end == (int) strlen(str))
+    if(start == 0 && end == str_len)
         return str;
     new_s = (char*) malloc(sizeof(char)*(end-start+1));
     while(start < end) {
@@ -72,7 +74,8 @@ char* substring(char* str, int start, int end) {
 }
 
 /*
- * rimuove dalla stringa gli spazi, tab e newline all'inizio e alla fine
+ * remove tabs, spaces, newlines and other indentation chars
+ * from the head and from the tail of "str"
  */
 char* trim_string(char* str) {
     int i = 0;
@@ -81,12 +84,14 @@ char* trim_string(char* str) {
 
     if(str == NULL)
         return NULL;
+    //remove head indentation
     for(; i < (int) strlen(str); i++) {
         if(str[i] == '\t' || str[i] == ' ' || str[i] == '\n')
             ++start;
         else
             break;
     }
+    //remove tail indentation
     for(i = (int) strlen(str)-1; i > start; i--) {
         if(str[i] == '\t' || str[i] == ' ' || str[i] == '\n')
             --end;
@@ -99,7 +104,7 @@ char* trim_string(char* str) {
 }
 
 /*
- * rimuove dalla stringa gli spazi, tab e newline tra i tag
+ * remove all spaces, tabs and newline from xml tags
  */
 char* trim_xml(char* str) {
     int i = 0;
@@ -112,20 +117,20 @@ char* trim_xml(char* str) {
         return NULL;
     copy = (char*) calloc(sizeof(char), strlen(str));
     for(i = 0; i < (int) strlen(str); i++) {
-        //se sono uscito dal tag allora controllo per gli spazi vuoti
+        //if it's out of tag then search for indentation spaces
         if(str[i] == '>')
             out_tag = 1;
-        //altrimenti salvo normalmente tutti i caratteri
+        //else save all characters inside tags
         if(str[i] == '<')
             out_tag = 0;
-        //se sono fuori e incontro altri tag/valori li salvo
+        //if it's out and it finds tag values, it saves these
         if(out_tag) {
             if(str[i] == ' ' || str[i] == '\t' || str[i] == '\n')
                 save = 0;
             else
                 save = 1;
         }
-        //se sono dentro un tag o sono un valore salvo i caratteri
+        //apply last controls
         if(!out_tag || save) {
             copy[j] = str[i];
             j++;
