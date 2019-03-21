@@ -24,6 +24,7 @@ int get_pos(char* data, int start, char find);
 char* substring(char* str, int start, int end);
 char* trim_string(char* str);
 char* trim_xml(char* str);
+void print_separator(const char* sep, int max_width);
 
 
 
@@ -140,6 +141,18 @@ char* trim_xml(char* str) {
     copy[j] = '\0';
 
     return copy;
+}
+
+/*
+ * simple procedure that print a row of sep strings for max_width chars
+ */
+void print_separator(const char* sep, int max_width) {
+    int i = 0;
+
+    for(i = 0; i < (int)(max_width/strlen(sep)); i++)
+        printf("%s", sep);
+    printf("\n");
+
 }
 
 #endif //STRING_MANAGER_H
